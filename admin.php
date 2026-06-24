@@ -73,7 +73,7 @@ $result = $conn->query($sql);
     </div>
 
 <footer class="footer">
-    <p>© 2026 Viorica Pogor. Educational project. Images and audio from royalty-free sources (Unsplash, Pixabay).</p>
+    <p>© Educational project. Images and audio from royalty-free sources (Unsplash, Pixabay).</p>
 </footer>
 
 </body>

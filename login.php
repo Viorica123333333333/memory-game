@@ -3,7 +3,7 @@ session_start();
 
 // Define fixed admin credentials
 $valid_username = "admin";
-$valid_password = "Adminvc123";
+$valid_password = "ChangeThisPassword";
 
 // Variable to store error message
 $error = "";
