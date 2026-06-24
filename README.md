@@ -2,7 +2,7 @@
 
 ## Overview
 
-Memory Game is a browser-based card matching game developed using PHP, JavaScript, HTML, and CSS.
+Memory Game is a browser-based card matching game developed using MySQL, PHP, JavaScript, HTML, and CSS.
 
 The application challenges players to find matching image pairs by remembering card positions. The project demonstrates front-end development, game logic implementation, user interaction handling, and basic administrative functionality for managing game content.
 
