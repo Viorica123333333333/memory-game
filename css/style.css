@@ -1,0 +1,529 @@
+/* =========================================================
+   1. RESET
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   2. PAGE LAYOUT
+========================================================= */
+body {
+  font-family: Arial, sans-serif;
+  background: url("../images/background.png") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 18px 18px 30px 10px;
+  position: relative;
+}
+
+/* Dark overlay for better readability */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 24, 35, 0.35);
+  z-index: 0;
+}
+
+/* Main shared container used for game and admin pages */
+.game-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 20px;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 34px 30px 30px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* =========================================================
+   3. TITLES AND TEXT
+========================================================= */
+
+/* Main title shown above the game container */
+.game-title {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 30px 0 10px;
+  padding-left: 6px;
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(90, 180, 255, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.28);
+  animation: titleGlow 2.4s ease-in-out infinite alternate;
+}
+
+/* Title style for admin pages */
+.admin-title {
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: 48px;
+}
+
+/* General instruction text */
+.game-instructions {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+  text-align: center;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(90, 180, 255, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.28);
+  animation: titleGlow 2.4s ease-in-out infinite alternate;
+}
+
+/* =========================================================
+   4. GAME STATUS MESSAGES
+========================================================= */
+
+/* Preview countdown message */
+#preview-message {
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #d1ffbd;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(90, 180, 255, 0.3),
+    0 4px 16px rgba(31, 106, 61, 0.28);
+  animation: titleGlow 2.4s ease-in-out infinite alternate;
+}
+
+/* Wrong attempts text */
+#status-message {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #d1ffbd;
+}
+
+/* Score text */
+#score-message {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #d1ffbd;
+}
+
+/* Large floating score popup */
+#score-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  font-size: 80px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.5);
+  transition: all 0.3s ease;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+#score-popup.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+#score-popup.positive {
+  color: #00c853;
+}
+
+#score-popup.negative {
+  color: #ff3b30;
+}
+
+/* =========================================================
+   5. BUTTONS AND UTILITY LINKS
+========================================================= */
+
+/* Shared glass style for buttons and utility links */
+#restart-button,
+#admin-button,
+.small-link-button,
+.top-left-link,
+.top-right-link,
+.admin-form button {
+  color: #1f2937;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+/* Restart game button */
+#restart-button {
+  padding: 10px 18px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Admin login button inside main container */
+#admin-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* Shared small navigation button */
+.small-link-button {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* Top-left utility button */
+.top-left-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* Top-right utility button */
+.top-right-link {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* Positive hover style for action buttons */
+#admin-button:hover,
+.small-link-button:hover,
+.admin-form button:hover {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(80, 200, 120, 0.7);
+  color: #1f2937;
+  box-shadow:
+    0 0 0 1px rgba(80, 200, 120, 0.35),
+    0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Negative hover style for logout */
+.top-right-link:hover {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(220, 70, 70, 0.7);
+  color: #1f2937;
+  box-shadow:
+    0 0 0 1px rgba(220, 70, 70, 0.35),
+    0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Neutral hover style for back/restart buttons */
+.top-left-link:hover,
+#restart-button:hover {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(160, 160, 160, 0.75);
+  color: #1f2937;
+  box-shadow:
+    0 0 0 1px rgba(160, 160, 160, 0.3),
+    0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   6. GAME BOARD
+========================================================= */
+
+/* Inner container for the memory board only */
+.board-wrapper {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 6px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Grid layout for game cards */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Card wrapper */
+.card {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card image */
+.card img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  padding: 5px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Card hover effect */
+.card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+/* Hide matched cards */
+.card.matched {
+  visibility: hidden;
+}
+
+/* =========================================================
+   7. ADMIN TABLE
+========================================================= */
+.admin-table {
+  width: 100%;
+  margin-top: 20px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  text-align: center;
+  color: #1f2937;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.admin-table th {
+  color: #111827;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Reset default link appearance inside admin table */
+.admin-table a {
+  color: #333;
+  text-decoration: none;
+}
+
+.admin-table a:visited {
+  color: #333;
+}
+
+/* Hover color for Edit */
+.admin-table .edit-link:hover {
+  color: #2e7d32;
+}
+
+/* Hover color for Delete */
+.admin-table .delete-link:hover {
+  color: #c62828;
+}
+
+/* =========================================================
+   8. FORMS
+========================================================= */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+/* Shared input and button sizing */
+.admin-form input,
+.admin-form button {
+  width: 50%;
+  max-width: 260px;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 12px;
+}
+
+/* Glass-style text inputs */
+.admin-form input {
+  color: #1f2937;
+  outline: none;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.admin-form input::placeholder {
+  color: #6b7280;
+}
+
+.admin-form input:focus {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+/* =========================================================
+   9. ANIMATIONS
+========================================================= */
+@keyframes titleGlow {
+  from {
+    transform: translateY(0);
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.25),
+      0 0 18px rgba(90, 180, 255, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.22);
+  }
+
+  to {
+    transform: translateY(-2px);
+    text-shadow:
+      0 0 12px rgba(255, 255, 255, 0.45),
+      0 0 28px rgba(90, 180, 255, 0.45),
+      0 6px 18px rgba(0, 0, 0, 0.28);
+  }
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  padding: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* FIX MOBILE LAYOUT ONLY */
+@media (max-width: 768px) {
+  body {
+    align-items: center;
+    padding: 12px;
+    overflow-x: hidden;
+  }
+
+  .game-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 22px 12px;
+  }
+
+  #admin-button {
+    position: static;
+    display: inline-block;
+    margin: 0 auto 16px;
+  }
+
+  .board-wrapper {
+    width: 100%;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .game-board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    width: 100%;
+    justify-items: center;
+  }
+
+  .card {
+    width: 105px;
+    height: 105px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 420px;
+    margin: 24px auto 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .card {
+    width: 95px;
+    height: 95px;
+  }
+
+  .game-board {
+    gap: 10px;
+  }
+
+  .game-container {
+    padding: 18px 10px;
+  }
+
+  .game-instructions {
+    font-size: 12px;
+  }
+}
